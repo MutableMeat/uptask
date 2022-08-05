@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import clienteAxios from "../../config/clienteAxios";
 
+//Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //Hooks
 import useAuth from "../../hooks/useAuth";
 
@@ -32,7 +36,6 @@ const Login = () => {
         email,
         password,
       });
-      setAlerta({});
       localStorage.setItem("token", data.token);
       setAuth(data);
       navigate("/proyectos");
@@ -48,15 +51,14 @@ const Login = () => {
 
   return (
     <>
+      {msg && <Alerta alerta={alerta} />}
+      <ToastContainer />
       <h1 className="text-sky-600 font-black text-6xl capitalize">
         Inicia sesión y administra tus{" "}
         <span className="text-slate-700" data-cy="titulo">
           Proyectos
         </span>
       </h1>
-
-      {msg && <Alerta alerta={alerta} />}
-
       <form
         className="my-10 bg-white shadow rounded-lg p-10"
         data-cy="form-login"
@@ -102,7 +104,6 @@ const Login = () => {
           data-cy="submit-login"
         />
       </form>
-
       <nav className="lg:flex lg:justify-between">
         <Link
           to="/registrar"
